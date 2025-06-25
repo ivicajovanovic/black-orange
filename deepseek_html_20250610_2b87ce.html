@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Futurism Landing Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #18191a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .section-title, .glass-btn {
+            font-family: 'Poppins', 'Inter', Arial, sans-serif;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        h1, .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: none;
+            color: #fff;
+        }
+
+        h2, .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            color: #fff;
+        }
+
+        h3, .card-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .glass-btn {
+            position: relative;
+            padding: 14px 35px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #222326;
+            color: #ff6600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            box-shadow:  4px 4px 12px #111, -4px -4px 12px #232323;
+        }
+
+        .glass-btn:hover {
+            box-shadow: inset 2px 2px 8px #232323, inset -2px -2px 8px #111;
+            background: #ff6600;
+            color: #fff;
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            min-height: 100vh;
+            transition: all 0.4s ease;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 80px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #232323;
+            border-radius: 0 24px 24px 0;
+            z-index: 100;
+            transition: all 0.4s ease;
+            overflow: hidden;
+            box-shadow: 8px 0 24px #111, -8px 0 24px #232323;
+        }
+
+        .sidebar:hover {
+            width: 250px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            margin: 8px 15px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            background: #232323;
+            box-shadow:  4px 4px 12px #111, -4px -4px 12px #232323;
+        }
+
+        .menu-item:hover {
+            box-shadow: inset 2px 2px 8px #232323, inset -2px -2px 8px #111;
+            background: #18191a;
+        }
+
+        .menu-icon, .card-icon {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ff6600;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon {
+            transition: color 0.2s, transform 0.2s;
+        }
+        .menu-item:hover .menu-icon {
+            color: #fff;
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .menu-text {
+            margin-left: 20px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #fff;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .sidebar:hover .menu-text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 80px;
+            transition: all 0.4s ease;
+            padding-bottom: 50px;
+            background: #18191a;
+        }
+
+        .sidebar:hover ~ .main-content {
+            margin-left: 250px;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background: #18191a;
+            border-radius: 0 0 0 40px;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+            box-shadow:  8px 8px 24px #111, -8px -8px 24px #232323;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            color: #fff;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(-60px) scale(0.98);
+            animation: heroIn 1.2s cubic-bezier(.68,-0.55,.27,1.55) both;
+            animation-delay: 0.1s;
+        }
+        @keyframes heroIn {
+            0% { opacity: 0; transform: translateY(-60px) scale(0.98);}
+            100% { opacity: 1; transform: none;}
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        /* Cards Section */
+        .cards-section {
+            padding: 80px 10%;
+            background: #18191a;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .glass-card {
+            background: #232323;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow:  8px 8px 24px #111, -8px -8px 24px #232323;
+            transition: all 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+        }
+
+        .glass-card:hover {
+            box-shadow: inset 2px 2px 12px #232323, inset -2px -2px 12px #111;
+            background: #18191a;
+            transform: scale(1.025) translateY(-4px);
+        }
+        .glass-card.visible {
+            opacity: 1;
+            transform: none;
+            animation: cardIn 1.1s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes cardIn {
+            0% { opacity: 0; transform: translateY(60px) scale(0.95);}
+            100% { opacity: 1; transform: none;}
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ff6600;
+        }
+
+        .card-content {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            background: #232323;
+            border-radius: 20px 20px 0 0;
+            margin: 0 10%;
+            font-family: 'Inter', 'Poppins', sans-serif;
+            box-shadow:  4px 4px 12px #111, -4px -4px 12px #232323;
+        }
+
+        /* Back to Top Button */
+        #backToTop {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 999;
+            background: #232323;
+            color: #ff6600;
+            border: none;
+            border-radius: 50%;
+            width: 56px;
+            height: 56px;
+            box-shadow:  4px 4px 12px #111, -4px -4px 12px #232323;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: opacity 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+        }
+        #backToTop:hover {
+            box-shadow: inset 2px 2px 8px #232323, inset -2px -2px 8px #111;
+            background: #ff6600;
+            color: #fff;
+        }
+
+        /* Micro-Interactions */
+        .menu-icon {
+            transition: color 0.2s, transform 0.2s;
+        }
+        .menu-item:hover .menu-icon {
+            color: #fff;
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .glass-btn {
+            overflow: hidden;
+            position: relative;
+        }
+        .glass-btn:active {
+            transform: scale(0.97);
+        }
+        .glass-btn .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple-effect 0.5s linear;
+            background: rgba(255,102,0,0.15);
+            pointer-events: none;
+        }
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        .glass-card {
+            transition: all 0.3s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .glass-card:hover {
+            transform: scale(1.025) translateY(-4px);
+        }
+
+        .section-title {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(.68,-0.55,.27,1.55), transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .section-title.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-radius: 0;
+                padding: 10px 0;
+                box-shadow: 0 4px 24px #111, 0 -4px 24px #232323;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                padding: 0;
+            }
+
+            .menu-item {
+                flex-direction: column;
+                padding: 10px 15px;
+                margin: 5px;
+            }
+
+            .menu-text {
+                margin-left: 0;
+                margin-top: 5px;
+                font-size: 0.7rem;
+                opacity: 1;
+                transform: none;
+            }
+
+            .sidebar:hover {
+                width: 100%;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .hero {
+                height: 70vh;
+                border-radius: 0;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 0 5%;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .glass-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .cards-section {
+                padding: 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="menu-item">
+                    <a href="#home" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-home-5-line"></i></span>
+                        <span class="menu-text">Home</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#about" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-information-line"></i></span>
+                        <span class="menu-text">About Us</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#gallery" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-image-2-line"></i></span>
+                        <span class="menu-text">Gallery</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#technology" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-cpu-line"></i></span>
+                        <span class="menu-text">Technology</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#design" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-palette-line"></i></span>
+                        <span class="menu-text">Design</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#web" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-global-line"></i></span>
+                        <span class="menu-text">Web</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#contact" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-mail-line"></i></span>
+                        <span class="menu-text">Contact</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#map" style="display:flex;align-items:center;text-decoration:none;width:100%;color:inherit;">
+                        <span class="menu-icon"><i class="ri-map-pin-line"></i></span>
+                        <span class="menu-text">Map</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1>Welcome to Neo-Futurism</h1>
+                    <p>Explore the cutting-edge of design with bold aesthetics and futuristic elements that redefine user experience.</p>
+                    <div class="btn-group">
+                        <a href="#about" class="glass-btn">Discover More</a>
+                        <a href="#contact" class="glass-btn">Join Us</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Us Section -->
+            <section class="cards-section" id="about">
+                <h2 class="section-title">About Us</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-team-line"></i></span>
+                        <h3 class="card-title">Who We Are</h3>
+                        <p class="card-content">We are a team of visionaries, designers, and technologists passionate about shaping the future of digital experiences through neo-futuristic design.</p>
+                    </div>
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-rocket-2-line"></i></span>
+                        <h3 class="card-title">Our Mission</h3>
+                        <p class="card-content">To push the boundaries of creativity and technology, delivering innovative solutions that inspire and engage.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gallery Section -->
+            <section class="cards-section" id="gallery">
+                <h2 class="section-title">Gallery</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Futuristic 1" style="width:100%;border-radius:12px;margin-bottom:15px;">
+                        <h3 class="card-title">Urban Future</h3>
+                    </div>
+                    <div class="glass-card">
+                        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Futuristic 2" style="width:100%;border-radius:12px;margin-bottom:15px;">
+                        <h3 class="card-title">Digital Dreams</h3>
+                    </div>
+                    <div class="glass-card">
+                        <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Futuristic 3" style="width:100%;border-radius:12px;margin-bottom:15px;">
+                        <h3 class="card-title">Neon City</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technology Section -->
+            <section class="cards-section" id="technology">
+                <h2 class="section-title">Technology</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-robot-2-line"></i></span>
+                        <h3 class="card-title">AI & Automation</h3>
+                        <p class="card-content">Integrating artificial intelligence and automation for smarter, more intuitive interfaces.</p>
+                    </div>
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-cloud-line"></i></span>
+                        <h3 class="card-title">Cloud Solutions</h3>
+                        <p class="card-content">Leveraging cloud technology for scalable, secure, and high-performance applications.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design Section -->
+            <section class="cards-section" id="design">
+                <h2 class="section-title">Design</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-brush-line"></i></span>
+                        <h3 class="card-title">Visual Identity</h3>
+                        <p class="card-content">Crafting unique, memorable visual identities with a futuristic edge.</p>
+                    </div>
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-layout-4-line"></i></span>
+                        <h3 class="card-title">UX/UI Excellence</h3>
+                        <p class="card-content">User-centered design that balances aesthetics and usability for a seamless experience.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Web Section -->
+            <section class="cards-section" id="web">
+                <h2 class="section-title">Web</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-code-s-slash-line"></i></span>
+                        <h3 class="card-title">Web Development</h3>
+                        <p class="card-content">Building fast, secure, and visually stunning web applications using the latest technologies.</p>
+                    </div>
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-smartphone-line"></i></span>
+                        <h3 class="card-title">Mobile Ready</h3>
+                        <p class="card-content">Ensuring every project is fully responsive and optimized for all devices.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="cards-section" id="contact">
+                <h2 class="section-title">Contact</h2>
+                <div class="cards-container">
+                    <div class="glass-card">
+                        <span class="card-icon"><i class="ri-mail-line"></i></span>
+                        <h3 class="card-title">Get in Touch</h3>
+                        <p class="card-content">Have a project in mind or want to collaborate? Reach out to us at <a href="mailto:info@neofuturism.com" style="color:#6a11cb;">info@neofuturism.com</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Map Section -->
+            <section class="cards-section" id="map">
+                <h2 class="section-title">Map</h2>
+                <div class="cards-container">
+                    <div class="glass-card" style="width:100%">
+                        <span class="card-icon"><i class="ri-map-pin-line"></i></span>
+                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=19.83354949951172%2C45.267135%2C19.85354949951172%2C45.287135&amp;layer=mapnik" style="width:100%;height:300px;border-radius:12px;border:none;"></iframe>
+                        <h3 class="card-title">Our Location</h3>
+                        <p class="card-content">Belgrade, Serbia</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>© 2025 Neo-Futurism Studio. All rights reserved.</p>
+                <p>Designed for the future, today.</p>
+            </footer>
+        </main>
+    </div>
+    <!-- Back to Top Button -->
+    <button id="backToTop" title="Back to top" style="position:fixed;bottom:32px;right:32px;z-index:999;background:linear-gradient(135deg,#6a11cb,#2575fc);color:#fff;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 4px 16px rgba(0,0,0,0.3);display:none;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;transition:opacity 0.3s;">
+        ↑
+    </button>
+    <script>
+    // Prikaz dugmeta kada se skroluje nadole
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'flex';
+            backToTop.style.opacity = '1';
+        } else {
+            backToTop.style.opacity = '0';
+            setTimeout(()=>{backToTop.style.display = 'none';}, 300);
+        }
+    });
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Ripple effect for .glass-btn
+    document.querySelectorAll('.glass-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        });
+    });
+
+    // Animate section titles on scroll into view
+    function onScrollSectionTitles() {
+        document.querySelectorAll('.section-title').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 80) {
+                el.classList.add('visible');
+            }
+        });
+        document.querySelectorAll('.glass-card').forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 60) {
+                card.classList.add('visible');
+            }
+        });
+        // Animate hero-content if not already visible
+        const hero = document.querySelector('.hero-content');
+        if (hero && !hero.classList.contains('visible')) {
+            const rect = hero.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 80) {
+                hero.classList.add('visible');
+            }
+        }
+    }
+    window.addEventListener('scroll', onScrollSectionTitles);
+    window.addEventListener('DOMContentLoaded', onScrollSectionTitles);
+    </script>
+</body>
+</html>
