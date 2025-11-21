@@ -3,36 +3,55 @@ const menuItems = document.querySelectorAll('.menu-item');
 const sections = Array.from(document.querySelectorAll('section'));
 const sidebar = document.querySelector('.sidebar');
 const lockButton = document.querySelector('.sidebar-lock');
-let sidebarLockedOpen = true;
+const sidebarStates = ['peek', 'open', 'closed'];
+let sidebarState = 'peek';
 
-function applySidebarLock() {
+function applySidebarState() {
     if (!sidebar || !lockButton) return;
-    lockButton.setAttribute('aria-pressed', sidebarLockedOpen ? 'true' : 'false');
     const icon = lockButton.querySelector('i');
     const text = lockButton.querySelector('.lock-text');
 
-    if (sidebarLockedOpen) {
+    sidebar.classList.remove('expanded', 'locked', 'locked-closed');
+    document.body.classList.remove('sidebar-expanded', 'sidebar-peek', 'sidebar-locked-closed');
+
+    if (sidebarState === 'open') {
+        lockButton.setAttribute('aria-pressed', 'true');
         sidebar.classList.add('expanded', 'locked');
-        sidebar.classList.remove('locked-closed');
         document.body.classList.add('sidebar-expanded');
-        document.body.classList.remove('sidebar-peek');
-        icon.className = 'ri-lock-line';
+        if (icon) icon.className = 'ri-lock-line';
         if (text) text.textContent = 'Locked open';
-    } else {
-        sidebar.classList.remove('expanded', 'locked');
+    } else if (sidebarState === 'closed') {
+        lockButton.setAttribute('aria-pressed', 'true');
         sidebar.classList.add('locked-closed');
-        document.body.classList.remove('sidebar-expanded', 'sidebar-peek');
-        icon.className = 'ri-lock-2-line';
-        if (text) text.textContent = 'Locked closed';
+        document.body.classList.add('sidebar-locked-closed');
+        if (icon) icon.className = 'ri-lock-2-line';
+        if (text) text.textContent = 'Locked collapsed';
+    } else {
+        lockButton.setAttribute('aria-pressed', 'false');
+        if (icon) icon.className = 'ri-lock-unlock-line';
+        if (text) text.textContent = 'Hover to expand';
     }
 }
 
 lockButton?.addEventListener('click', () => {
-    sidebarLockedOpen = !sidebarLockedOpen;
-    applySidebarLock();
+    const nextIndex = (sidebarStates.indexOf(sidebarState) + 1) % sidebarStates.length;
+    sidebarState = sidebarStates[nextIndex];
+    applySidebarState();
 });
 
-applySidebarLock();
+applySidebarState();
+
+sidebar?.addEventListener('mouseenter', () => {
+    if (sidebarState === 'peek') {
+        document.body.classList.add('sidebar-peek');
+    }
+});
+
+sidebar?.addEventListener('mouseleave', () => {
+    if (sidebarState === 'peek') {
+        document.body.classList.remove('sidebar-peek');
+    }
+});
 
 const toggleBackToTop = () => {
     if (window.scrollY > 320) {
@@ -54,23 +73,6 @@ menuItems.forEach((item) => {
         }
     });
 });
-
-// Ripple effect on CTA buttons
-function addRipple(button) {
-    button.addEventListener('click', (e) => {
-        const ripple = document.createElement('span');
-        ripple.className = 'ripple';
-        const rect = button.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.style.width = ripple.style.height = `${size}px`;
-        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
-        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-        button.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove());
-    });
-}
-
-document.querySelectorAll('.glass-btn').forEach(addRipple);
 
 // Intersection observer for reveal animations
 const observer = new IntersectionObserver(
@@ -140,9 +142,6 @@ const nextBtn = document.querySelector('.carousel-btn.next');
 prevBtn?.addEventListener('click', () => nextTestimonial(-1));
 nextBtn?.addEventListener('click', () => nextTestimonial(1));
 
-// Auto-rotate testimonials
-setInterval(() => nextTestimonial(1), 6000);
-
 // Accordion
 const accordionItems = document.querySelectorAll('.accordion-item');
 accordionItems.forEach((item) => {
@@ -162,7 +161,7 @@ form?.addEventListener('submit', (e) => {
     const email = form.email.value.trim();
     if (!name || !email) {
         feedback.textContent = 'Please add your name and a valid email so we can respond.';
-        feedback.style.color = '#ff9c3f';
+        feedback.style.color = '#ffb400';
         return;
     }
     feedback.textContent = 'Thanks! We will reach out within one business day.';
