@@ -8,6 +8,7 @@ let sidebarState = 'peek';
 
 function applySidebarState() {
     if (!sidebar || !lockButton) return;
+    sidebar.dataset.state = sidebarState;
     const icon = lockButton.querySelector('i');
     const text = lockButton.querySelector('.lock-text');
 

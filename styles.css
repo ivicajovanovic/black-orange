@@ -53,7 +53,7 @@ ul {
     gap: 18px;
     min-height: 100vh;
     padding: 12px;
-    transition: grid-template-columns 0.32s ease, gap 0.2s ease;
+    transition: grid-template-columns 0.34s ease, gap 0.24s ease;
 }
 
 body.sidebar-expanded .container,
@@ -77,7 +77,7 @@ body.sidebar-locked-closed .container {
     flex-direction: column;
     align-items: center;
     gap: 14px;
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, padding 0.28s ease;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, padding 0.28s ease, transform 0.32s ease;
     z-index: 100;
     box-shadow: var(--shadow-outer);
     border-radius: var(--radius);
@@ -89,10 +89,20 @@ body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar {
     padding-inline: 12px;
 }
 
+body.sidebar-locked-closed .sidebar,
+body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar {
+    align-items: center;
+}
+
 .sidebar-menu {
     width: 100%;
     display: grid;
     gap: 10px;
+}
+
+body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar-menu,
+body.sidebar-locked-closed .sidebar-menu {
+    justify-items: center;
 }
 
 .menu-item {
@@ -115,6 +125,11 @@ body:not(.sidebar-expanded):not(.sidebar-peek) .menu-item {
     padding: 12px 10px;
 }
 
+body.sidebar-locked-closed .menu-item {
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
 .menu-item:hover {
     border-color: var(--accent);
 }
@@ -125,14 +140,18 @@ body:not(.sidebar-expanded):not(.sidebar-peek) .menu-item {
     display: grid;
     place-items: center;
     font-size: 22px;
-    color: var(--accent);
+    color: var(--electric);
     background: #0d111c;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.4);
 }
 
 body:not(.sidebar-expanded):not(.sidebar-peek) .menu-icon {
+    margin: 0 auto;
+}
+
+body.sidebar-locked-closed .menu-icon {
     margin: 0 auto;
 }
 
@@ -144,6 +163,14 @@ body:not(.sidebar-expanded):not(.sidebar-peek) .menu-icon {
     transform: translateX(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease;
     white-space: nowrap;
+}
+
+body:not(.sidebar-expanded):not(.sidebar-peek) .menu-text,
+body.sidebar-locked-closed .menu-text {
+    position: absolute;
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
 }
 
 .sidebar:hover .menu-text,
@@ -161,6 +188,12 @@ body.sidebar-locked-closed .sidebar:hover .menu-text {
 body.sidebar-locked-closed .sidebar:hover .sidebar-lock .lock-text {
     opacity: 0;
     transform: translateX(-6px);
+}
+
+body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar-lock,
+body.sidebar-locked-closed .sidebar-lock {
+    width: 58px;
+    padding: 10px;
 }
 
 .menu-item.active {
@@ -183,6 +216,11 @@ body.sidebar-locked-closed .sidebar:hover .sidebar-lock .lock-text {
     text-align: center;
     display: grid;
     gap: 10px;
+}
+
+body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar-footer,
+body.sidebar-locked-closed .sidebar-footer {
+    justify-items: center;
 }
 
 .sidebar-lock {
@@ -210,6 +248,13 @@ body.sidebar-locked-closed .sidebar:hover .sidebar-lock .lock-text {
     transition: opacity 0.2s ease, transform 0.2s ease;
     transform: translateX(-6px);
     white-space: nowrap;
+}
+
+body:not(.sidebar-expanded):not(.sidebar-peek) .sidebar-lock .lock-text,
+body.sidebar-locked-closed .sidebar-lock .lock-text {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .sidebar:hover .sidebar-lock .lock-text,
