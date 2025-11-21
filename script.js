@@ -34,6 +34,18 @@ lockButton?.addEventListener('click', () => {
 
 applySidebarLock();
 
+sidebar?.addEventListener('mouseenter', () => {
+    if (!sidebarLockedOpen) {
+        document.body.classList.add('sidebar-peek');
+    }
+});
+
+sidebar?.addEventListener('mouseleave', () => {
+    if (!sidebarLockedOpen) {
+        document.body.classList.remove('sidebar-peek');
+    }
+});
+
 const toggleBackToTop = () => {
     if (window.scrollY > 320) {
         backToTop.style.display = 'flex';
