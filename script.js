@@ -1,6 +1,38 @@
 const backToTop = document.getElementById('backToTop');
 const menuItems = document.querySelectorAll('.menu-item');
 const sections = Array.from(document.querySelectorAll('section'));
+const sidebar = document.querySelector('.sidebar');
+const lockButton = document.querySelector('.sidebar-lock');
+let sidebarLockedOpen = true;
+
+function applySidebarLock() {
+    if (!sidebar || !lockButton) return;
+    lockButton.setAttribute('aria-pressed', sidebarLockedOpen ? 'true' : 'false');
+    const icon = lockButton.querySelector('i');
+    const text = lockButton.querySelector('.lock-text');
+
+    if (sidebarLockedOpen) {
+        sidebar.classList.add('expanded', 'locked');
+        sidebar.classList.remove('locked-closed');
+        document.body.classList.add('sidebar-expanded');
+        document.body.classList.remove('sidebar-peek');
+        icon.className = 'ri-lock-line';
+        if (text) text.textContent = 'Locked open';
+    } else {
+        sidebar.classList.remove('expanded', 'locked');
+        sidebar.classList.add('locked-closed');
+        document.body.classList.remove('sidebar-expanded', 'sidebar-peek');
+        icon.className = 'ri-lock-2-line';
+        if (text) text.textContent = 'Locked closed';
+    }
+}
+
+lockButton?.addEventListener('click', () => {
+    sidebarLockedOpen = !sidebarLockedOpen;
+    applySidebarLock();
+});
+
+applySidebarLock();
 
 const toggleBackToTop = () => {
     if (window.scrollY > 320) {
